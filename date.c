@@ -2,9 +2,7 @@
 #include "user.h"   
 #include "date.h"   
 
-
 int kabisat(int th){
-	// int flag = 0;
 	if(th%400==0)
 		return 1;
 	else if(th%100==0)
@@ -16,8 +14,8 @@ int kabisat(int th){
 }
 
 
-void month(int x){
-	switch(x)
+void month(int bln){
+	switch(bln)
 	{
 		case 1:printf(1," Jan");
 		       break;
@@ -47,12 +45,12 @@ void month(int x){
 }
 
 
-void day(int x,int y,int z){
-	int initial_day = 4;
+void day(int th,int bln,int hari){
+	int awal = 4;
 	int count = 0;	
-	if(x>1970)
+	if(th>1970)
 	{
-		for(int i=1970;i<x;i++)
+		for(int i=1970;i<th;i++)
 		{
 			if(kabisat(i))
 				count += 366;
@@ -60,11 +58,11 @@ void day(int x,int y,int z){
 				count += 365;
 		}
 	}
-	for(int i=1;i<y;i++)
+	for(int i=1;i<bln;i++)
 	{
 		if(i==2)
 		{
-			if(kabisat(x))
+			if(kabisat(th))
 				count += 29;
 			else
 				count += 28;
@@ -78,7 +76,7 @@ void day(int x,int y,int z){
 		else
 			count += 30;
 	}
-	int final = (initial_day+count+z-1)%7;
+	int final = (awal+count+hari-1)%7;
 	switch(final)
 	{
 		case 0:printf(1,"Sun");
@@ -127,8 +125,8 @@ void now(){
 		printf(2, "Error\n");
 		exit();
 	}
-	day_name(tg.year, tg.month, tg.day);	 
-	month_name(tg.month);  
+	day(tg.year, tg.month, tg.day);	 
+	month(tg.month);  
 	printf(1," %d", tg.day);  
 	time();  
 	printf(1," WIB");
@@ -142,8 +140,8 @@ void utc(){
 		printf(2, "Error\n");
 		exit();
 	}
-	day_name(tgl.year, tgl.month, tgl.day);	
-	month_name(tgl.month); 
+	day(tgl.year, tgl.month, tgl.day);	
+	month(tgl.month); 
 	printf(1," %d", tgl.day); 
 	printf(1," %d:%d:%d", tgl.hour, tgl.minute, tgl.second); 
 	printf(1," UTC");
